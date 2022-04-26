@@ -52,7 +52,7 @@ function App() {
 			orderSide: 0,
 			page: 1, // pagination shows 20 orders each page
 		});
-		console.log(res.orders);
+		console.log(res);
 		}
 		catch(err){
 			console.log(err.message)
@@ -66,18 +66,18 @@ function App() {
 			orderSide: 0,
 			page: 1, // pagination shows 20 orders each page
 		})
-		let ord={}
-		for(let i of ans.orders){
-			if(i["maker"]===web3Account){
-				ord=i
-				break
-			}
-		}
+		// let ord={}
+		// for(let i of ans.orders){
+		// 	if(i["maker"]===web3Account){
+		// 		ord=i
+		// 		break
+		// 	}
+		// }
 		try{
 			const res=await Moralis.Plugins.opensea.fulfillOrder({
 				network: 'testnet',
 				userAddress: web3Account,
-				order: ord
+				order: ans
 			  });
 			  console.log(res)
 		}
@@ -115,7 +115,7 @@ function App() {
 				tokenAddress: values.tokenAddress,
 				tokenId: values.tokenId,
 				tokenType: "ERC721",
-				amount: 1.0,
+				amount: 0.0099,
 				userAddress: web3Account,
 				paymentTokenAddress: "0xc778417e063141139fce010982780140aa0cd5ab",
 			});
@@ -194,7 +194,7 @@ function App() {
 				<Button onClick={getOrder}>Get Order</Button>
 				{isAuthenticated && (
 					<>
-						<Button onClick={createBuyOrder}>Create Buy Order</Button>
+						<Button onClick={createBuyOrder}>Create Buy Offer</Button>
 						<Button onClick={createSellOrder}>Create Sell Order</Button>
 						<Button onClick={fulfillOrder}>Fulfill Order</Button>
 					</>
