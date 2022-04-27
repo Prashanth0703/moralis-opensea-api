@@ -59,25 +59,26 @@ function App() {
 		}
 	};
 	const fulfillOrder = async()=>{
+		let ord={}
 		const ans=await Moralis.Plugins.opensea.getOrders({
 			network: "testnet",
 			tokenAddress: values.tokenAddress,
 			tokenId: values.tokenId,
-			orderSide: 0,
+			orderSide: 1,
 			page: 1, // pagination shows 20 orders each page
 		})
-		// let ord={}
 		// for(let i of ans.orders){
 		// 	if(i["maker"]===web3Account){
 		// 		ord=i
 		// 		break
 		// 	}
 		// }
+		console.log(ans)
 		try{
 			const res=await Moralis.Plugins.opensea.fulfillOrder({
 				network: 'testnet',
 				userAddress: web3Account,
-				order: ans
+				order: ans.orders[0]
 			  });
 			  console.log(res)
 		}
